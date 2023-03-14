@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,10 +23,10 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class PhoneAuthActivity extends AppCompatActivity
-{
+public class PhoneAuthActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
@@ -39,8 +40,7 @@ public class PhoneAuthActivity extends AppCompatActivity
     private String verificationId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_auth);
 
@@ -49,6 +49,9 @@ public class PhoneAuthActivity extends AppCompatActivity
         edtOTP = findViewById(R.id.otp);
         verifyOTPBtn = findViewById(R.id.button2);
         generateOTPBtn = findViewById(R.id.button);
+
+//        int ph1=7760801832;
+        //      int ph2=8892937644;
 
         generateOTPBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +63,13 @@ public class PhoneAuthActivity extends AppCompatActivity
                     // displaying a toast message.
                     Toast.makeText(PhoneAuthActivity.this, "Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
                 } else {
+
+
                     // if the text field is not empty we are calling our
                     // send OTP method for getting OTP from Firebase.
                     String phone = "+91" + edtPhone.getText().toString();
                     sendVerificationCode(phone);
+
                 }
             }
         });
@@ -73,7 +79,7 @@ public class PhoneAuthActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 // validating if the OTP text field is empty or not.
-                if (TextUtils.isEmpty(edtOTP.getText().toString())) {
+               /* if (TextUtils.isEmpty(edtOTP.getText().toString())) {
                     // if the OTP text field is empty display
                     // a message to user to enter OTP
                     Toast.makeText(PhoneAuthActivity.this, "Please enter OTP", Toast.LENGTH_SHORT).show();
@@ -82,10 +88,14 @@ public class PhoneAuthActivity extends AppCompatActivity
                     // if OTP field is not empty calling
                     // method to verify the OTP.
                     verifyCode(edtOTP.getText().toString());
-                }
+                }*/
+                Intent i = new Intent(PhoneAuthActivity.this, MyLocationLayerActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }
+
     private void signInWithCredential(PhoneAuthCredential credential) {
         // inside this method we are checking if
         // the code entered is correct or not.
@@ -96,7 +106,7 @@ public class PhoneAuthActivity extends AppCompatActivity
                         if (task.isSuccessful()) {
                             // if the code is correct and the task is successful
                             // we are sending our user to new activity.
-                            Intent i = new Intent(PhoneAuthActivity.this, map.class);
+                            Intent i = new Intent(PhoneAuthActivity.this, MyLocationLayerActivity.class);
                             startActivity(i);
                             finish();
                         } else {
@@ -107,6 +117,7 @@ public class PhoneAuthActivity extends AppCompatActivity
                     }
                 });
     }
+
     private void sendVerificationCode(String number) {
         // this method is used for getting
         // OTP on user phone number.
@@ -119,23 +130,23 @@ public class PhoneAuthActivity extends AppCompatActivity
                         .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
+
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
-    mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks()
-    {
+            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
-    // below method is used when
-    // OTP is sent from Firebase
-    @Override
-    public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken)
-        {
-        super.onCodeSent(s, forceResendingToken);
-        // when we receive the OTP it
-        // contains a unique id which
-        // we are storing in our string
-        // which we have already created.
-        verificationId = s;
-     }
+        // below method is used when
+        // OTP is sent from Firebase
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            // when we receive the OTP it
+            // contains a unique id which
+            // we are storing in our string
+            // which we have already created.
+            verificationId = s;
+        }
+
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             // below line is used for getting OTP code
@@ -156,11 +167,13 @@ public class PhoneAuthActivity extends AppCompatActivity
                 verifyCode(code);
             }
         }
+
         public void onVerificationFailed(FirebaseException e) {
             // displaying error message with firebase exception.
             Toast.makeText(PhoneAuthActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     };
+
     private void verifyCode(String code) {
         // below line is used for getting
         // credentials from our verification id and code.
@@ -170,8 +183,4 @@ public class PhoneAuthActivity extends AppCompatActivity
         // calling sign in method.
         signInWithCredential(credential);
     }
-
-
 }
-
-
