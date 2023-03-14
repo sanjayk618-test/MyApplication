@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "846890568974",
+    "project_id": "e-go-31014",
+    "storage_bucket": "e-go-31014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846890568974:android:f23ecd0155195e9eb25b5f",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846890568974-p91gd95v1pcsq25r9kj3s0a4dgkj8u82.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "f24d89cb4e5ecc48fcbc4f704706f46f776e103e"
+          }
+        },
+        {
+          "client_id": "846890568974-76dcm32705krt9dvbn6lrkcp14n0psj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAfgMSasyPWNVMJClKGbJ78bkylqeEg4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846890568974-76dcm32705krt9dvbn6lrkcp14n0psj4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
